@@ -1,4 +1,15 @@
+'''
+Module 0-pascal_triangle
+Contains function pascal_triangle(n)
+'''
 def pascal_triangle(n):
+  '''
+  Pascal's triangle solver
+  Args:
+    n (int): The number of rows of the triangle
+  Returns:
+    List of list of numbers, each list representing a 
+  '''
   triangle = []
 
   for i in range(n):
