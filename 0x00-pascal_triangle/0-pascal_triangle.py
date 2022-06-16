@@ -11,7 +11,7 @@ def pascal_triangle(n):
     Args:
       n (int): The number of rows of the triangle
     Returns:
-      List of list of numbers, each list representing a 
+      List of list of numbers, each list representing a
     '''
     triangle = []
 
