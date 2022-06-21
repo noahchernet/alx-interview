@@ -33,17 +33,3 @@ def canUnlockAll(boxes):
     if set(required_keys) <= set(unlocked_boxes_indicies):
         return True
     return False
-
-    # for i in boxes:
-    #   for j in i:
-    #     if j not in unlocked_boxes_indicies and j != 0:
-    #       unlocked_boxes_indicies.append(j)
-    # unlocked_boxes_indicies = sorted(unlocked_boxes_indicies)
-    # required_keys = [*range(1, len(boxes), 1)]
-
-    # print("Box size: " + str(len(boxes)))
-    # print("Found keys:   ", unlocked_boxes_indicies,
-    # "\nRequired keys:", required_keys)
-    # if all(x in unlocked_boxes_indicies for x in required_keys):
-    #   return True
-    # return False
