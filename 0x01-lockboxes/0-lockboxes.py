@@ -1,8 +1,6 @@
 '''Module 0-Lockboxes
 Contains function canUnlockAll'''
 
-from time import clock_getres
-
 
 def canUnlockAll(boxes):
     '''
@@ -29,7 +27,8 @@ def canUnlockAll(boxes):
     required_keys = [*range(1, len(boxes), 1)]
 
     # print("Box size: " + str(len(boxes)))
-    # print("Found keys:   ", unlocked_boxes_indicies, "\nRequired keys:", required_keys)
+    # print("Found keys:   ", unlocked_boxes_indicies,
+    # "\nRequired keys:", required_keys)
 
     if set(required_keys) <= set(unlocked_boxes_indicies):
         return True
@@ -43,7 +42,8 @@ def canUnlockAll(boxes):
     # required_keys = [*range(1, len(boxes), 1)]
 
     # print("Box size: " + str(len(boxes)))
-    # print("Found keys:   ", unlocked_boxes_indicies, "\nRequired keys:", required_keys)
+    # print("Found keys:   ", unlocked_boxes_indicies,
+    # "\nRequired keys:", required_keys)
     # if all(x in unlocked_boxes_indicies for x in required_keys):
     #   return True
     # return False
