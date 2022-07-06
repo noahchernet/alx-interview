@@ -4,13 +4,12 @@ Reads standard input line by line and computes metrics:
 '''
 import fileinput
 import re
-import sys
 
 
 def main():
     count = 0
     total_file_size = 0
-    status_codes_compilation = {200: 0, 301: 0,
+    status_codes = {200: 0, 301: 0,
                                 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
 
     try:
@@ -32,8 +31,8 @@ def main():
 
                 total_file_size += file_size
 
-                if status_code in list(status_codes_compilation.keys()):
-                    status_codes_compilation[status_code] += 1
+                if status_code in list(status_codes.keys()):
+                    status_codes[status_code] += 1
 
             else:
                 continue
@@ -44,16 +43,14 @@ def main():
                 # Print cumulative file size
                 print("File size: " + str(total_file_size))
                 for i in [200, 301, 400, 401, 403, 404, 405, 500]:
-                    if status_codes_compilation[i] != 0:
-                        print("{}: {}".format(i, status_codes_compilation[i]))
-                        status_codes_compilation[i] = 0
+                    if status_codes[i] != 0:
+                        print("{}: {}".format(i, status_codes[i]))
     except KeyboardInterrupt:
         # Print cumulative file size
         print("File size: {}".format(total_file_size))
         for i in [200, 301, 400, 401, 403, 404, 405, 500]:
-            if status_codes_compilation[i] != 0:
-                print("{}: {}".format(i, status_codes_compilation[i]))
-                status_codes_compilation[i] = 0
+            if status_codes[i] != 0:
+                print("{}: {}".format(i, status_codes[i]))
         raise
 
 
