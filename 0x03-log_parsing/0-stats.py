@@ -37,7 +37,7 @@ def main():
             else:
                 continue
 
-            if count == 10:
+            if count == 11:
                 count = 0  # Reset the counter
 
                 # Print cumulative file size
