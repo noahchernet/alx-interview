@@ -37,9 +37,7 @@ def main():
             else:
                 continue
 
-            if count == 11:
-                count = 0  # Reset the counter
-
+            if count != 0 and count % 10 == 0:
                 # Print cumulative file size
                 print("File size: " + str(total_file_size))
                 for i in [200, 301, 400, 401, 403, 404, 405, 500]:
