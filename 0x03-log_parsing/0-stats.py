@@ -7,13 +7,13 @@ import re
 
 
 def main():
+    '''Program execution starts here'''
     count = 0
     total_file_size = 0
     status_codes = {200: 0, 301: 0,
                     400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
 
     try:
-        '''Program execution starts here'''
         for line in fileinput.input():
             # Check if the line has the correct log format,
             # else continue to the next line
@@ -22,7 +22,6 @@ def main():
                 r' "GET /projects/260 HTTP/1.1" \d{3} [0-9]+$', line)
 
             if log:
-                count += 1
                 status_code = int(
                     re.match(r'.*?([0-9]+) \d+$', log.string).group(1))
                 file_size = int(re.match('.*?([0-9]+)$', log.string).group(1))
@@ -36,20 +35,22 @@ def main():
 
             else:
                 continue
+            count += 1  # Counting each line regardless of having matching log format
 
             if count != 0 and count % 10 == 0:
-                # Print cumulative file size
-                print("File size: " + str(total_file_size))
-                for i in [200, 301, 400, 401, 403, 404, 405, 500]:
-                    if status_codes[i] != 0:
-                        print("{}: {}".format(i, status_codes[i]))
+                print_codes(status_codes, total_file_size)
+
     except KeyboardInterrupt:
-        # Print cumulative file size
-        print("File size: {}".format(total_file_size))
-        for i in [200, 301, 400, 401, 403, 404, 405, 500]:
-            if status_codes[i] != 0:
-                print("{}: {}".format(i, status_codes[i]))
+        print_codes(status_codes, total_file_size)
         raise
+
+
+def print_codes(status_codes, total_file_size):
+    """Prints the status code and the number of times they appear"""
+    print("File size: {}".format(total_file_size))
+    for i in [200, 301, 400, 401, 403, 404, 405, 500]:
+        if status_codes[i] != 0:
+            print("{}: {}".format(i, status_codes[i]))
 
 
 if __name__ == "__main__":
