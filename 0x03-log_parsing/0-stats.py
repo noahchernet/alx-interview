@@ -1,63 +1,41 @@
 #!/usr/bin/python3
 '''Module 0-stats.py
-Reads standard input line by line and computes metrics:
+Reads standard input line by line and computes log metrics:
 '''
-import fileinput
 import re
+import sys
+counter = 0
+file_size = 0
+statusC_counter = {200: 0, 301: 0, 400: 0,
+                   401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
 
 
-def main():
-    '''Program execution starts here
-    Logs from standard output are read and their status codes and their
-    frequencies are printed.
-    If a log line doesn't match the format:
-<IP Address> - [<date>] "GET /projects/260 HTTP/1.1" <status code> <file-size>
-    it's skipped'''
-    count = 0
-    total_file_size = 0
-    status_codes = {200: 0, 301: 0,
-                    400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
-
-    try:
-        for line in fileinput.input():
-            # Check if the line has the correct log format,
-            # else continue to the next line
-            log = re.match(
-                r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - \[.+\]' +
-                r' "GET /projects/260 HTTP/1.1" \d{3} [0-9]+$', line)
-
-            if log:
-                status_code = int(
-                    re.match(r'.*?([0-9]+) \d+$', log.string).group(1))
-                file_size = int(re.match('.*?([0-9]+)$', log.string).group(1))
-                # print("File size: " + str(file_size) + " Status code: " +
-                # str(status_code))
-
-                total_file_size += file_size
-
-                if status_code in list(status_codes.keys()):
-                    status_codes[status_code] += 1
-
-            else:
-                continue
-            # Counting each line regardless of having matching log format
-            count += 1
-
-            if count != 0 and count % 10 == 0:
-                print_codes(status_codes, total_file_size)
-
-    except KeyboardInterrupt:
-        print_codes(status_codes, total_file_size)
-        raise
-
-
-def print_codes(status_codes, total_file_size):
+def printCodes(dict, file_s):
     """Prints the status code and the number of times they appear"""
-    print("File size: {}".format(total_file_size))
-    for i in [200, 301, 400, 401, 403, 404, 405, 500]:
-        if status_codes[i] != 0:
-            print("{}: {}".format(i, status_codes[i]))
+    print("File size: {}".format(file_s))
+    for key in sorted(dict.keys()):
+        if statusC_counter[key] != 0:
+            print("{}: {}".format(key, dict[key]))
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        for line in sys.stdin:
+            split_string = re.split('- |"|"| " " ', str(line))
+            statusC_and_file_s = split_string[-1]
+            if counter != 0 and counter % 10 == 0:
+                printCodes(statusC_counter, file_size)
+            counter = counter + 1
+            try:
+                statusC = int(statusC_and_file_s.split()[0])
+                f_size = int(statusC_and_file_s.split()[1])
+                # print("Status Code {} size {}".format(statusC, f_size))
+                if statusC in statusC_counter:
+                    statusC_counter[statusC] += 1
+                file_size = file_size + f_size
+            except:
+                pass
+        printCodes(statusC_counter, file_size)
+    except KeyboardInterrupt:
+        printCodes(statusC_counter, file_size)
+        raise
