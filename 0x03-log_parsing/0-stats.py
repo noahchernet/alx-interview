@@ -7,7 +7,12 @@ import re
 
 
 def main():
-    '''Program execution starts here'''
+    '''Program execution starts here
+    Logs from standard output are read and their status codes and their
+    frequencies are printed.
+    If a log line doesn't match the format:
+<IP Address> - [<date>] "GET /projects/260 HTTP/1.1" <status code> <file-size>
+    it's skipped'''
     count = 0
     total_file_size = 0
     status_codes = {200: 0, 301: 0,
