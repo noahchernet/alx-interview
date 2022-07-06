@@ -35,7 +35,8 @@ def main():
 
             else:
                 continue
-            count += 1  # Counting each line regardless of having matching log format
+            # Counting each line regardless of having matching log format
+            count += 1
 
             if count != 0 and count % 10 == 0:
                 print_codes(status_codes, total_file_size)
