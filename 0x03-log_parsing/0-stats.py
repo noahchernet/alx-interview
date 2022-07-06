@@ -45,7 +45,7 @@ def main():
                 print("File size: " + str(total_file_size))
                 for i in [200, 301, 400, 401, 403, 404, 405, 500]:
                     if status_codes_compilation[i] != 0:
-                        print(i, status_codes_compilation[i])
+                      print("{}: {}".format(i, status_codes_compilation[i]))
     except KeyboardInterrupt:
         # Print cumulative file size
         print("File size: {}".format(total_file_size))
