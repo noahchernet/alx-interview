@@ -64,9 +64,11 @@ def validUTF8(data):
             # If one of the bytes' length is less than 8,
             # it means their binary representation starts with 0.
             # Hence, it's invalid
-            if len(secondChar) < 8 or len(thirdChar) < 8 or len(fourthChar) < 8:
+            if (len(secondChar) < 8 or len(thirdChar) < 8 or
+                    len(fourthChar) < 8):
                 return False
-            elif secondChar[0:2] == '10' and thirdChar[0:2] == '10' and fourthChar[0:2] == '10':
+            elif (secondChar[0:2] == '10' and thirdChar[0:2] == '10' and
+                  fourthChar[0:2] == '10'):
                 # UTF-8 char is valid, continue to the next character
                 i += 4
                 continue
