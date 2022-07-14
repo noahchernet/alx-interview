@@ -13,6 +13,9 @@ def validUTF8(data):
     data is a list of integers, each integer representing a byte'''
     # print("Checking", data, '...')
 
+    if data == []:
+        return False
+
     i = 0
     while i < len(data):
         # print("Checking", data[i])
