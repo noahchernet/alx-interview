@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 '''Module 0-validate_utf8
 Contains functions validUTF8(data) and decimalToBinary(num)'''
 
