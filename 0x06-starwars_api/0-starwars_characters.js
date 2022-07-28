@@ -2,12 +2,11 @@
 // Prints all characters of a Star Wars movie, with the episode's number passed
 // as argument
 
-const request = require("request");
+const request = require('request');
 const episode = process.argv[2];
-const characters = [];
 
 request(
-  "https://swapi-api.hbtn.io/api/films/" + episode,
+  'https://swapi-api.hbtn.io/api/films/' + episode,
   (error, response, body) => {
     if (error) {
       console.log(error);
@@ -16,10 +15,6 @@ request(
 
       listCharacters(json.characters);
     }
-    // json.characters.forEach((characterAPI) => {
-    // });
-
-    // console.log(characters);
   }
 );
 
